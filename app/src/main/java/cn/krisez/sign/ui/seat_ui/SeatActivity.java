@@ -3,15 +3,8 @@ package cn.krisez.sign.ui.seat_ui;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.RecyclerView;
-import android.support.design.widget.NavigationView;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -25,8 +18,8 @@ import cn.krisez.sign.R;
 import cn.krisez.sign.adapter.ClassAdapter;
 import cn.krisez.sign.adapter.OnItemClickListener;
 import cn.krisez.sign.bean.Seat.Seats;
-import cn.krisez.sign.persenter.ClassPresenter;
-import cn.krisez.sign.persenter.ClassPresenterImp;
+import cn.krisez.sign.persenter.class_presenter.ClassPresenter;
+import cn.krisez.sign.persenter.class_presenter.ClassPresenterImp;
 
 public class SeatActivity extends AppCompatActivity implements ISeatView {
 

@@ -56,7 +56,6 @@ public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.SeatsHolder>
                 public void onClick(View v) {
                     int layoutPos = holder.getLayoutPosition();
                     onItemClickListener.onItemClick(holder.itemView, layoutPos);
-                    return;
                 }
             });
 

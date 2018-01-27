@@ -1,10 +1,10 @@
-package cn.krisez.sign.persenter;
+package cn.krisez.sign.persenter.class_presenter;
 
 import java.util.List;
 
 import cn.krisez.sign.bean.Seat.Seats;
-import cn.krisez.sign.model.IMainModel;
-import cn.krisez.sign.model.MainModel;
+import cn.krisez.sign.model.ISeatModel;
+import cn.krisez.sign.model.SeatModel;
 import cn.krisez.sign.ui.seat_ui.ISeatView;
 
 /**
@@ -13,11 +13,11 @@ import cn.krisez.sign.ui.seat_ui.ISeatView;
 
 public class ClassPresenter implements ClassPresenterImp,ClassListener {
     private ISeatView iview;
-    private IMainModel mIMainModel;
+    private ISeatModel mIMainModel;
 
     public ClassPresenter(ISeatView view) {
         iview = view;
-        mIMainModel = new MainModel();
+        mIMainModel = new SeatModel();
     }
 
     @Override
