@@ -5,7 +5,7 @@ import java.util.List;
 import cn.krisez.sign.bean.Seat.Seats;
 import cn.krisez.sign.model.IMainModel;
 import cn.krisez.sign.model.MainModel;
-import cn.krisez.sign.ui.ISeatView;
+import cn.krisez.sign.ui.seat_ui.ISeatView;
 
 /**
  * Created by Krisez on 2018-01-25.

@@ -1,4 +1,4 @@
-package cn.krisez.sign.ui;
+package cn.krisez.sign.ui.seat_ui;
 
 import java.util.List;
 

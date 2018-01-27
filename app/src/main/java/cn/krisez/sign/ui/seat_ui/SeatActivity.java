@@ -1,8 +1,7 @@
-package cn.krisez.sign.ui;
+package cn.krisez.sign.ui.seat_ui;
 
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -11,12 +10,10 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.GridLayout;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.Toast;
@@ -24,19 +21,14 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.bmob.v3.exception.BmobException;
-import cn.bmob.v3.listener.UpdateListener;
 import cn.krisez.sign.R;
 import cn.krisez.sign.adapter.ClassAdapter;
 import cn.krisez.sign.adapter.OnItemClickListener;
-import cn.krisez.sign.bean.ClassSeats;
 import cn.krisez.sign.bean.Seat.Seats;
-import cn.krisez.sign.bean.Students;
 import cn.krisez.sign.persenter.ClassPresenter;
 import cn.krisez.sign.persenter.ClassPresenterImp;
 
-public class SeatActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener,ISeatView {
+public class SeatActivity extends AppCompatActivity implements ISeatView {
 
     private RecyclerView mRecyclerView;
     private ClassAdapter mClassAdapter;
@@ -52,22 +44,23 @@ public class SeatActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_seat);
 
         mPresenter = new ClassPresenter(this);
-        init();
         initOperation();
     }
 
     //操作初始化
     private void initOperation() {
+        mButton = findViewById(R.id.class_button);
+        mProgressBar = findViewById(R.id.progress_bar);
         mClassAdapter = new ClassAdapter(this,mSeatsLis);
         mRecyclerView = findViewById(R.id.class_recycler);
         mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(13,StaggeredGridLayoutManager.VERTICAL));
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.setAdapter(mClassAdapter);
 
-        mButton = findViewById(R.id.button);
+        mButton = findViewById(R.id.class_button);
         mProgressBar = findViewById(R.id.progress_bar);
         mScrollView = findViewById(R.id.class_scroll);
         mButton.setOnClickListener(new View.OnClickListener() {
@@ -96,81 +89,6 @@ public class SeatActivity extends AppCompatActivity
 
             }
         });
-    }
-
-    //系统初始化
-    private void init() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        mButton = findViewById(R.id.button);
-        mProgressBar = findViewById(R.id.progress_bar);
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-    }
-
-    @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
-        }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
     }
 
     @Override
