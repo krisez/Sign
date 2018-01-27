@@ -9,25 +9,34 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.ProgressBar;
+import android.widget.ScrollView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.UpdateListener;
 import cn.krisez.sign.R;
 import cn.krisez.sign.adapter.ClassAdapter;
-import cn.krisez.sign.bean.Seats;
+import cn.krisez.sign.adapter.OnItemClickListener;
+import cn.krisez.sign.bean.ClassSeats;
+import cn.krisez.sign.bean.Seat.Seats;
+import cn.krisez.sign.bean.Students;
 import cn.krisez.sign.persenter.ClassPresenter;
 import cn.krisez.sign.persenter.ClassPresenterImp;
 
-public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener,IMainView {
+public class SeatActivity extends AppCompatActivity
+        implements NavigationView.OnNavigationItemSelectedListener,ISeatView {
 
     private RecyclerView mRecyclerView;
     private ClassAdapter mClassAdapter;
@@ -36,6 +45,7 @@ public class MainActivity extends AppCompatActivity
     //demo
     private Button mButton;
     private ProgressBar mProgressBar;
+    private ScrollView mScrollView;
 
     private ClassPresenterImp mPresenter;
 
@@ -53,9 +63,39 @@ public class MainActivity extends AppCompatActivity
     private void initOperation() {
         mClassAdapter = new ClassAdapter(this,mSeatsLis);
         mRecyclerView = findViewById(R.id.class_recycler);
-        mRecyclerView.setLayoutManager(new GridLayoutManager(this,13, GridLayout.VERTICAL,false));
+        mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(13,StaggeredGridLayoutManager.VERTICAL));
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.setAdapter(mClassAdapter);
+
+        mButton = findViewById(R.id.button);
+        mProgressBar = findViewById(R.id.progress_bar);
+        mScrollView = findViewById(R.id.class_scroll);
+        mButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mPresenter.reset();
+            }
+        });
+
+        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                mScrollView.scrollBy(dx,dy);
+            }
+        });
+
+        mClassAdapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                Toast.makeText(SeatActivity.this, mSeatsLis.get(position).getBelong().getName(), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onItemLongClick(View view, int position) {
+
+            }
+        });
     }
 
     //系统初始化
@@ -141,6 +181,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void dismissProgress() {
         mProgressBar.setVisibility(View.GONE);
+        mButton.setVisibility(View.GONE);
     }
 
     @Override
