@@ -5,4 +5,7 @@ package cn.krisez.sign.ui.login_ui;
  */
 
 public interface ILoginView {
+    void showError(String s);
+    void showProgress();
+    void dismissProgress();
 }
