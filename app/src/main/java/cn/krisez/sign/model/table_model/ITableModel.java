@@ -11,5 +11,5 @@ import cn.krisez.sign.persenter.table_presenter.TableListener;
 
 public interface ITableModel {
     void getTableData(String xh, TableListener listener);
-    List<KeBiao> updateTable(String tableData);
+    List<KeBiao> dealTable(String tableData);
 }

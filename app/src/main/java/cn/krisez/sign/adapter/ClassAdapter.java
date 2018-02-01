@@ -45,10 +45,10 @@ public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.SeatsHolder>
     @Override
     public void onBindViewHolder(final SeatsHolder holder, int position) {
         Seats seat = mSeats.get(position);
-        if (seat.getType().equals("gd")) {
-            holder.itemView.setBackgroundColor(Color.BLACK);
-        } else holder.name.setText(seat.getBelong().getName());
-
+        holder.itemView.setBackgroundColor(Color.parseColor(seat.getColor()));
+        if(!seat.getType().equals("gd")){
+            holder.name.setText(seat.getBelong().getName());
+        }
         if (onItemClickListener != null) {
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @RequiresApi(api = Build.VERSION_CODES.KITKAT)

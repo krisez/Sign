@@ -9,12 +9,14 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +26,9 @@ import cn.krisez.sign.adapter.TableAdapter;
 import cn.krisez.sign.bean.KeBiao;
 import cn.krisez.sign.persenter.table_presenter.ITablePresenter;
 import cn.krisez.sign.persenter.table_presenter.TablePresenter;
+import cn.krisez.sign.ui.login_ui.LoginActivity;
 import cn.krisez.sign.ui.seat_ui.SeatActivity;
+import cn.krisez.sign.utils.SharedPreferenceUtil;
 import cn.krisez.sign.widget.DividerDecoration;
 
 /**
@@ -32,13 +36,18 @@ import cn.krisez.sign.widget.DividerDecoration;
  */
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener,ITableView{
+        implements NavigationView.OnNavigationItemSelectedListener, ITableView {
 
     private RecyclerView mRecyclerView;
     private TableAdapter mTableAdapter;
     private List<KeBiao> mKeBiaos = new ArrayList<>();
 
+    //nav的id，main的tip
+    private TextView mTextViewId;
+    private TextView mTips;
+
     private ITablePresenter mPresenter;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,25 +60,33 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void initOperation() {
-        mPresenter.getTable();
-        mTableAdapter = new TableAdapter(this,mKeBiaos);
+        mTips = findViewById(R.id.main_tip);
+        mTableAdapter = new TableAdapter(this, mKeBiaos);
         mRecyclerView = findViewById(R.id.table_recycler);
-        mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(8,StaggeredGridLayoutManager.VERTICAL));
-        mRecyclerView.addItemDecoration(new DividerDecoration(this, DividerDecoration.VERTICAL_LIST));
-        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        mRecyclerView.setAdapter(mTableAdapter);
 
-        mTableAdapter.setOnItemClickListener(new TableAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
+        if (SharedPreferenceUtil.getXh().isEmpty()) {
+            mTips.setVisibility(View.VISIBLE);
+            mTextViewId.setText("未登录");
+        } else {
+            mPresenter.getTable();
+            mTextViewId.setText(SharedPreferenceUtil.getXh());
+            mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(8, StaggeredGridLayoutManager.VERTICAL));
+            mRecyclerView.addItemDecoration(new DividerDecoration(this, DividerDecoration.VERTICAL_LIST));
+            mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+            mRecyclerView.setAdapter(mTableAdapter);
 
-            }
+            mTableAdapter.setOnItemClickListener(new TableAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(View view, int position) {
 
-            @Override
-            public void onItemLongClick(View view, int position) {
+                }
 
-            }
-        });
+                @Override
+                public void onItemLongClick(View view, int position) {
+
+                }
+            });
+        }
     }
 
     private void init() {
@@ -83,6 +100,7 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        mTextViewId = navigationView.getHeaderView(0).findViewById(R.id.nav_id_textView);
         navigationView.setNavigationItemSelectedListener(this);
     }
 
@@ -96,28 +114,46 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.menu_refresh) {
+            Toast.makeText(this, "课表刷新中", Toast.LENGTH_SHORT).show();
+            mKeBiaos.removeAll(mKeBiaos);
+            mPresenter.updateTable();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-            Intent intent = new Intent(MainActivity.this, SeatActivity.class);
-            startActivity(intent);
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+        Intent intent = null;
+        if (id == R.id.nav_personal) {
+            if(SharedPreferenceUtil.getXh().isEmpty()){
+                intent = new Intent(MainActivity.this, PersonActivity.class);
+            }else intent = new Intent(MainActivity.this, LoginActivity.class);
+        } else if (id == R.id.nav_sign) {
+        } else if (id == R.id.nav_seat) {
+            intent = new Intent(MainActivity.this, SeatActivity.class);
         }
-
+        startActivity(intent);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
@@ -125,6 +161,9 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void showTable(List<KeBiao> keBiaoList) {
+        if(mTips.getVisibility()==View.VISIBLE){
+            mTips.setVisibility(View.GONE);
+        }
         mKeBiaos.addAll(keBiaoList);
         mTableAdapter.notifyDataSetChanged();
     }

@@ -3,8 +3,8 @@ package cn.krisez.sign.persenter.class_presenter;
 import java.util.List;
 
 import cn.krisez.sign.bean.Seat.Seats;
-import cn.krisez.sign.model.ISeatModel;
-import cn.krisez.sign.model.SeatModel;
+import cn.krisez.sign.model.seat_model.ISeatModel;
+import cn.krisez.sign.model.seat_model.SeatModel;
 import cn.krisez.sign.ui.seat_ui.ISeatView;
 
 /**

@@ -32,7 +32,7 @@ public class TableModel implements ITableModel {
             public Object parseNetworkResponse(Response response, int id) throws Exception {
                 String data = response.body().string();
                 SharedPreferenceUtil.setTable(xh,data);
-                return updateTable(data);
+                return dealTable(data);
             }
 
             @Override
@@ -47,8 +47,9 @@ public class TableModel implements ITableModel {
         });
     }
 
+    //数据处理
     @Override
-    public List<KeBiao> updateTable(String tableData) {
+    public List<KeBiao> dealTable(String tableData) {
         List<KeBiao> keBiaos = new ArrayList<>();
         Document doc = Jsoup.parse(tableData);
         Elements es = doc.getElementsByClass("printTable");

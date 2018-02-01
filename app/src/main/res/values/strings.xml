@@ -5,8 +5,24 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+
     <string name="xh">学号</string>
     <string name="password">密码</string>
     <string name="sign_up">注册</string>
     <string name="sign_in">登录</string>
+
+    <!--Navigation item name-->
+    <string name="nav_person">个人中心</string>
+    <string name="nav_sign">点名</string>
+    <string name="nav_seat">座位</string>
+    <string name="nav_setting">设置</string>
+    <string name="nav_message">信息</string>
+    <string name="nav_school">经济管理学院</string>
+    <string name="nav_wSpace">http://www.krisez.cn</string>
+    <string name="nav_email">Email:</string>
+    <string name="nav_emailAd">krisez96@gmail.com</string>
+    <string name="nav_share">分享</string>
+    <string name="main_tips">请登录查看您的课表！</string>
+    <string name="action_refresh">刷新</string>
+
 </resources>

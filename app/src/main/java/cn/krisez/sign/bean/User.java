@@ -7,5 +7,16 @@ import cn.bmob.v3.BmobUser;
  */
 
 public class User extends BmobUser {
+    private String headImg;
 
+    public User() {
+    }
+
+    public String getHeadImg() {
+        return headImg;
+    }
+
+    public void setHeadImg(String headImg) {
+        this.headImg = headImg;
+    }
 }

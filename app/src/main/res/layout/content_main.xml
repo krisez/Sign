@@ -14,10 +14,23 @@
         android:layout_height="1dp"
         android:background="#000000"
         />
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/table_recycler"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    </android.support.v7.widget.RecyclerView>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/table_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </android.support.v7.widget.RecyclerView>
+        <TextView
+            android:id="@+id/main_tip"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/main_tips"
+            android:textSize="28sp"/>
+    </RelativeLayout>
+
 
 </LinearLayout>

@@ -1,4 +1,4 @@
-package cn.krisez.sign.model;
+package cn.krisez.sign.model.seat_model;
 
 import cn.krisez.sign.persenter.class_presenter.ClassListener;
 

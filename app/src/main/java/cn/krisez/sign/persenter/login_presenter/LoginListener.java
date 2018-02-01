@@ -7,6 +7,6 @@ import cn.krisez.sign.bean.User;
  */
 
 public interface LoginListener {
-    void success(User user);
+    void success();
     void failed(String s);
 }

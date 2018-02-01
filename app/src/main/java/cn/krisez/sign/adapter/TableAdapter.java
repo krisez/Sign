@@ -66,6 +66,9 @@ public class TableAdapter extends RecyclerView.Adapter<TableAdapter.MyViewHolder
         final KeBiao keBiao = mDatas.get(position);
         ViewGroup.LayoutParams lp = holder.itemView.getLayoutParams();
         lp.width = Utils.dip2px(mContex,60);
+        if(position>=16&&position<=23 ||position>=40 &&position<=47){
+            lp.height = Utils.dip2px(mContex,20);
+        }
         holder.tv.setText(keBiao.getTextView());
         if(keBiao.getTextView().length()>25)
             holder.tv.setBackgroundColor(Color.parseColor(Utils.RandomColor(position)));

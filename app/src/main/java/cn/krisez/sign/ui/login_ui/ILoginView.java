@@ -5,6 +5,8 @@ package cn.krisez.sign.ui.login_ui;
  */
 
 public interface ILoginView {
+    String getXh();
+    String getMM();
     void showError(String s);
     void showProgress();
     void dismissProgress();

@@ -5,5 +5,5 @@ package cn.krisez.sign.persenter.login_presenter;
  */
 
 public interface ILoginPresenter {
-    void getUser();
+    void login();
 }

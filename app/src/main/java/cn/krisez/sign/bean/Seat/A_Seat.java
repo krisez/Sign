@@ -17,9 +17,8 @@ public class A_Seat extends Seats {
         super();
     }
 
-    public A_Seat(int no, String type, Students belong, int cd, int qj) {
-        super(no,type,belong,cd,qj);
-
+    public A_Seat(int no, String type, Students belong, int cd, int qj, String color) {
+        super(no, type, belong, cd, qj, color);
     }
 
     public int getNo() {
@@ -60,5 +59,15 @@ public class A_Seat extends Seats {
 
     public void setQj(int qj) {
         super.setQj(qj);
+    }
+
+    @Override
+    public String getColor() {
+        return super.getColor();
+    }
+
+    @Override
+    public void setColor(String color) {
+        super.setColor(color);
     }
 }

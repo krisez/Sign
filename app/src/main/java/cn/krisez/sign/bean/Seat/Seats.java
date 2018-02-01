@@ -13,17 +13,19 @@ public class Seats extends BmobObject{
     private String type;//type of seats(zw or gd)
     private Students belong;//belong somebody
     private int cd;//be late
-    private int qj;//have a vacation
+    private int qj;//have a vacation\
+    private String color;//color judge
 
     Seats() {
     }
 
-    Seats(int no, String type, Students belong, int cd, int qj) {
+    public Seats(int no, String type, Students belong, int cd, int qj, String color) {
         this.no = no;
         this.type = type;
         this.belong = belong;
         this.cd = cd;
         this.qj = qj;
+        this.color = color;
     }
 
     public int getNo() {
@@ -64,5 +66,13 @@ public class Seats extends BmobObject{
 
     public void setQj(int qj) {
         this.qj = qj;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
     }
 }

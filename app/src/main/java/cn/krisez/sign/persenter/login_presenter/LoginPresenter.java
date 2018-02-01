@@ -19,17 +19,17 @@ public class LoginPresenter implements ILoginPresenter,LoginListener {
     }
 
     @Override
-    public void getUser() {
-
+    public void login() {
+        mModel.getUser(mView.getXh(),mView.getMM(),this);
     }
 
     @Override
-    public void success(User user) {
-
+    public void success() {
+        mView.dismissProgress();
     }
 
     @Override
     public void failed(String s) {
-
+        mView.showError(s);
     }
 }

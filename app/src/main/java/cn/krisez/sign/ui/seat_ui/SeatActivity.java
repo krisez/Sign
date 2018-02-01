@@ -14,10 +14,16 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.FindListener;
+import cn.bmob.v3.listener.UpdateListener;
 import cn.krisez.sign.R;
 import cn.krisez.sign.adapter.ClassAdapter;
 import cn.krisez.sign.adapter.OnItemClickListener;
+import cn.krisez.sign.bean.ClassSeats;
 import cn.krisez.sign.bean.Seat.Seats;
+import cn.krisez.sign.bean.Students;
 import cn.krisez.sign.persenter.class_presenter.ClassPresenter;
 import cn.krisez.sign.persenter.class_presenter.ClassPresenterImp;
 
@@ -73,8 +79,26 @@ public class SeatActivity extends AppCompatActivity implements ISeatView {
 
         mClassAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
-            public void onItemClick(View view, int position) {
-                Toast.makeText(SeatActivity.this, mSeatsLis.get(position).getBelong().getName(), Toast.LENGTH_SHORT).show();
+            public void onItemClick(View view,int position) {
+               Toast.makeText(SeatActivity.this, mSeatsLis.get(position).getBelong().getName(), Toast.LENGTH_SHORT).show();
+                /*BmobQuery<Students> query = new BmobQuery<>();
+                query.addWhereEqualTo("name","陈骏");
+                query.findObjects(new FindListener<Students>() {
+                    @Override
+                    public void done(List<Students> list, BmobException e) {
+                        for (int i=0;i<mSeatsLis.size();i++)
+                            mSeatsLis.get(i).setBelong(list.get(0));
+                    }
+                });
+
+                ClassSeats classSeats = new ClassSeats();
+                classSeats.setSeats(mSeatsLis);
+                classSeats.update("830095186e", new UpdateListener() {
+                    @Override
+                    public void done(BmobException e) {
+
+                    }
+                });*/
             }
 
             @Override

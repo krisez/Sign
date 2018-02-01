@@ -6,7 +6,7 @@ import cn.bmob.v3.BmobObject;
  * Created by Krisez on 2018-01-27.
  */
 
-public class KeBiao extends BmobObject{
+public class KeBiao{
     private String textView;
     private String lessonId;
 
