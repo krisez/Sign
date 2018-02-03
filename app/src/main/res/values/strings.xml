@@ -29,5 +29,6 @@
     <string name="zy">专业</string>
     <string name="boy">男</string>
     <string name="girl">女</string>
+    <string name="register_tip">每个都为必填项，谢谢合作！ \n填写前请查看《注册须知》</string>
 
 </resources>
