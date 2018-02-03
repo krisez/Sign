@@ -14,7 +14,7 @@
     <!--Navigation item name-->
     <string name="nav_person">个人中心</string>
     <string name="nav_sign">点名</string>
-    <string name="nav_seat">座位</string>
+    <string name="nav_work">作业</string>
     <string name="nav_setting">设置</string>
     <string name="nav_message">信息</string>
     <string name="nav_school">经济管理学院</string>

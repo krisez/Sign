@@ -31,7 +31,6 @@ public class LoginModel implements ILoginModel {
         user.login(new SaveListener<User>() {
             @Override
             public void done(User u, BmobException e) {
-                SharedPreferenceUtil.setUser(u);
                 loginTable(xh);
                 listener.success();
             }

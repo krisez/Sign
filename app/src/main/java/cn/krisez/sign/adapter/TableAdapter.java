@@ -2,6 +2,8 @@ package cn.krisez.sign.adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
@@ -18,6 +20,7 @@ import java.util.Objects;
 
 import cn.krisez.sign.R;
 import cn.krisez.sign.bean.KeBiao;
+import cn.krisez.sign.ui.seat_ui.SeatActivity;
 import cn.krisez.sign.utils.Utils;
 
 /**
@@ -82,6 +85,13 @@ public class TableAdapter extends RecyclerView.Adapter<TableAdapter.MyViewHolder
                     if (!Objects.equals(mDatas.get(position).getTextView(), "") && Objects.equals(keBiao.getLessonId(), " ")){
                         new AlertDialog.Builder(mContex).setTitle("详情")
                                 .setMessage(mDatas.get(position).getTextView())
+                                .setPositiveButton("座位安排", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        Intent intent = new Intent(mContex, SeatActivity.class);
+                                        mContex.startActivity(intent);
+                                    }
+                                })
                                 .show();
                     }
                     else Toast.makeText(mContex, "没课哦~", Toast.LENGTH_SHORT).show();

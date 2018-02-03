@@ -8,6 +8,8 @@ import com.zhy.http.okhttp.OkHttpUtils;
 import java.util.concurrent.TimeUnit;
 
 import cn.bmob.v3.Bmob;
+import cn.bmob.v3.BmobUser;
+import cn.krisez.sign.bean.User;
 import okhttp3.OkHttpClient;
 
 /**
@@ -18,6 +20,8 @@ public class App extends Application {
     public static final String stu_kb = "http://jwzx.cqupt.congm.in/jwzxtmp/kebiao/kb_stu.php";
 
     private static Context mContext;
+    private static User sUser;
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -31,9 +35,15 @@ public class App extends Application {
         OkHttpUtils.initClient(okHttpClient);
         mContext = getApplicationContext();
         Bmob.initialize(this,"1fdea79c19bce2af976f6b920ae4018c");
+
+        sUser = BmobUser.getCurrentUser(User.class);
     }
 
     public static Context getContext(){
         return mContext;
+    }
+
+    public static User getUser(){
+        return sUser;
     }
 }

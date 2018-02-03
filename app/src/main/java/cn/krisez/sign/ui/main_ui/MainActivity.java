@@ -146,12 +146,12 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
         Intent intent = null;
         if (id == R.id.nav_personal) {
-            if(SharedPreferenceUtil.getXh().isEmpty()){
+            if(!SharedPreferenceUtil.getXh().isEmpty()){
                 intent = new Intent(MainActivity.this, PersonActivity.class);
             }else intent = new Intent(MainActivity.this, LoginActivity.class);
         } else if (id == R.id.nav_sign) {
-        } else if (id == R.id.nav_seat) {
-            intent = new Intent(MainActivity.this, SeatActivity.class);
+        } else if (id == R.id.nav_work) {
+            //intent = new Intent(MainActivity.this, WorkActivity.class);
         }
         startActivity(intent);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
