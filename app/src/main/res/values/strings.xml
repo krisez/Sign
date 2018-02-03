@@ -24,5 +24,10 @@
     <string name="nav_share">分享</string>
     <string name="main_tips">请登录查看您的课表！\n请通过个人中心登录</string>
     <string name="action_refresh">刷新</string>
+    <string name="name">姓名</string>
+    <string name="xy">学院</string>
+    <string name="zy">专业</string>
+    <string name="boy">男</string>
+    <string name="girl">女</string>
 
 </resources>

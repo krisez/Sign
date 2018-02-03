@@ -64,4 +64,13 @@ public class Students extends BmobObject{
     public void setSex(String sex) {
         this.sex = sex;
     }
+
+    @Override
+    public String toString() {
+        return  "xh='" + xh + '\n' +
+                ", name='" + name + '\n' +
+                ", xy='" + xy + '\n' +
+                ", zy='" + zy + '\n' +
+                ", sex='" + sex ;
+    }
 }

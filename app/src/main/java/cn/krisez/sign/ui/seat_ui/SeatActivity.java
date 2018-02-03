@@ -1,6 +1,7 @@
 package cn.krisez.sign.ui.seat_ui;
 
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.app.AppCompatActivity;
@@ -53,9 +54,9 @@ public class SeatActivity extends AppCompatActivity implements ISeatView {
     private void initOperation() {
         mButton = findViewById(R.id.class_button);
         mProgressBar = findViewById(R.id.progress_bar);
-        mClassAdapter = new ClassAdapter(this,mSeatsLis);
+        mClassAdapter = new ClassAdapter(this, mSeatsLis);
         mRecyclerView = findViewById(R.id.class_recycler);
-        mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(13,StaggeredGridLayoutManager.VERTICAL));
+        mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(13, StaggeredGridLayoutManager.VERTICAL));
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.setAdapter(mClassAdapter);
 
@@ -73,15 +74,19 @@ public class SeatActivity extends AppCompatActivity implements ISeatView {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                mScrollView.scrollBy(dx,dy);
+                mScrollView.scrollBy(dx, dy);
             }
         });
 
         mClassAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
-            public void onItemClick(View view,int position) {
-               Toast.makeText(SeatActivity.this, mSeatsLis.get(position).getBelong().getName(), Toast.LENGTH_SHORT).show();
-                /*BmobQuery<Students> query = new BmobQuery<>();
+            public void onItemClick(View view, int position) {
+                Toast.makeText(SeatActivity.this, mSeatsLis.get(position).getBelong().getName(), Toast.LENGTH_SHORT).show();
+                new AlertDialog.Builder(SeatActivity.this)
+                        .setTitle("信息")
+                        .setMessage(mSeatsLis.get(position).getBelong().toString())
+                        .show();
+               /*BmobQuery<Students> query = new BmobQuery<>();
                 query.addWhereEqualTo("name","陈骏");
                 query.findObjects(new FindListener<Students>() {
                     @Override

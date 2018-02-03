@@ -14,6 +14,7 @@ import cn.krisez.sign.bean.KeBiao;
 import cn.krisez.sign.bean.Students;
 import cn.krisez.sign.bean.User;
 import cn.krisez.sign.persenter.login_presenter.LoginListener;
+import cn.krisez.sign.persenter.login_presenter.LoginPresenter;
 import cn.krisez.sign.persenter.table_presenter.TableListener;
 import cn.krisez.sign.utils.SharedPreferenceUtil;
 import okhttp3.Call;
@@ -34,20 +35,50 @@ public class LoginModel implements ILoginModel {
         user.login(new SaveListener<User>() {
             @Override
             public void done(User u, BmobException e) {
-                loginTable(xh);
-                saveStudent(xh);
-                listener.success();
+                if (e == null) {
+                    loginTable(xh);
+                    saveStudent(xh);
+                    listener.success();
+                }else listener.failed(e.getMessage());
             }
         });
 
     }
 
+    @Override
+    public void register(final String xh, final String mm, Students students, final LoginListener listener) {
+        students.save();
+        User user = new User();
+        user.setUsername(xh);
+        user.setPassword(mm);
+        user.signUp(new SaveListener<User>() {
+            @Override
+            public void done(User u, BmobException e) {
+                if (e == null) {
+                    u.setPassword(mm);
+                    loginTable(xh);
+                    laterLogin(u, listener);
+                } else listener.failed(e.getMessage());
+            }
+        });
+    }
+
+    private void laterLogin(User user, final LoginListener listener) {
+        user.login(new SaveListener<User>() {
+            @Override
+            public void done(User user, BmobException e) {
+                saveStudent(user.getUsername());
+                listener.success();
+            }
+        });
+    }
+
     private void loginTable(final String xh) {
-        OkHttpUtils.get().addParams("xh",xh).url(App.stu_kb).build().execute(new Callback() {
+        OkHttpUtils.get().addParams("xh", xh).url(App.stu_kb).build().execute(new Callback() {
             @Override
             public Object parseNetworkResponse(Response response, int id) throws Exception {
                 String data = response.body().string();
-                SharedPreferenceUtil.setTable(xh,data);
+                SharedPreferenceUtil.setTable(xh, data);
                 return 0;
             }
 
@@ -63,9 +94,9 @@ public class LoginModel implements ILoginModel {
         });
     }
 
-    private void saveStudent(String xh){
+    private void saveStudent(String xh) {
         BmobQuery<Students> query = new BmobQuery<>();
-        query.addWhereEqualTo("xh",xh)
+        query.addWhereEqualTo("xh", xh)
                 .findObjects(new FindListener<Students>() {
                     @Override
                     public void done(List<Students> list, BmobException e) {
