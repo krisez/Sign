@@ -5,10 +5,13 @@ import com.zhy.http.okhttp.callback.Callback;
 
 import java.util.List;
 
+import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.SaveListener;
 import cn.krisez.sign.App;
 import cn.krisez.sign.bean.KeBiao;
+import cn.krisez.sign.bean.Students;
 import cn.krisez.sign.bean.User;
 import cn.krisez.sign.persenter.login_presenter.LoginListener;
 import cn.krisez.sign.persenter.table_presenter.TableListener;
@@ -32,6 +35,7 @@ public class LoginModel implements ILoginModel {
             @Override
             public void done(User u, BmobException e) {
                 loginTable(xh);
+                saveStudent(xh);
                 listener.success();
             }
         });
@@ -57,5 +61,17 @@ public class LoginModel implements ILoginModel {
 
             }
         });
+    }
+
+    private void saveStudent(String xh){
+        BmobQuery<Students> query = new BmobQuery<>();
+        query.addWhereEqualTo("xh",xh)
+                .findObjects(new FindListener<Students>() {
+                    @Override
+                    public void done(List<Students> list, BmobException e) {
+                        Students students = list.get(0);
+                        SharedPreferenceUtil.saveStudent(students);
+                    }
+                });
     }
 }

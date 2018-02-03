@@ -27,7 +27,7 @@ import cn.krisez.sign.bean.KeBiao;
 import cn.krisez.sign.persenter.table_presenter.ITablePresenter;
 import cn.krisez.sign.persenter.table_presenter.TablePresenter;
 import cn.krisez.sign.ui.login_ui.LoginActivity;
-import cn.krisez.sign.ui.seat_ui.SeatActivity;
+import cn.krisez.sign.ui.person_ui.PersonActivity;
 import cn.krisez.sign.utils.SharedPreferenceUtil;
 import cn.krisez.sign.widget.DividerDecoration;
 
@@ -37,6 +37,9 @@ import cn.krisez.sign.widget.DividerDecoration;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, ITableView {
+
+    public static final int REQUEST_LOGIN = 100;
+    public static final int REQUEST_PERSON = 200;
 
     private RecyclerView mRecyclerView;
     private TableAdapter mTableAdapter;
@@ -70,23 +73,23 @@ public class MainActivity extends AppCompatActivity
         } else {
             mPresenter.getTable();
             mTextViewId.setText(SharedPreferenceUtil.getXh());
-            mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(8, StaggeredGridLayoutManager.VERTICAL));
-            mRecyclerView.addItemDecoration(new DividerDecoration(this, DividerDecoration.VERTICAL_LIST));
-            mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-            mRecyclerView.setAdapter(mTableAdapter);
-
-            mTableAdapter.setOnItemClickListener(new TableAdapter.OnItemClickListener() {
-                @Override
-                public void onItemClick(View view, int position) {
-
-                }
-
-                @Override
-                public void onItemLongClick(View view, int position) {
-
-                }
-            });
         }
+        mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(8, StaggeredGridLayoutManager.VERTICAL));
+        mRecyclerView.addItemDecoration(new DividerDecoration(this, DividerDecoration.VERTICAL_LIST));
+        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        mRecyclerView.setAdapter(mTableAdapter);
+
+        mTableAdapter.setOnItemClickListener(new TableAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+
+            }
+
+            @Override
+            public void onItemLongClick(View view, int position) {
+
+            }
+        });
     }
 
     private void init() {
@@ -146,14 +149,17 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
         Intent intent = null;
         if (id == R.id.nav_personal) {
-            if(!SharedPreferenceUtil.getXh().isEmpty()){
+            if (!SharedPreferenceUtil.getXh().isEmpty()) {
                 intent = new Intent(MainActivity.this, PersonActivity.class);
-            }else intent = new Intent(MainActivity.this, LoginActivity.class);
+                startActivityForResult(intent, REQUEST_PERSON);
+            } else {
+                intent = new Intent(MainActivity.this, LoginActivity.class);
+                startActivityForResult(intent, REQUEST_LOGIN);
+            }
         } else if (id == R.id.nav_sign) {
         } else if (id == R.id.nav_work) {
             //intent = new Intent(MainActivity.this, WorkActivity.class);
         }
-        startActivity(intent);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
@@ -161,10 +167,28 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void showTable(List<KeBiao> keBiaoList) {
-        if(mTips.getVisibility()==View.VISIBLE){
+        if (mTips.getVisibility() == View.VISIBLE) {
             mTips.setVisibility(View.GONE);
         }
         mKeBiaos.addAll(keBiaoList);
         mTableAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case REQUEST_LOGIN:
+                mTextViewId.setText(data.getStringExtra("xh"));
+                break;
+            case REQUEST_PERSON:
+                if(resultCode == PersonActivity.RESULT_LOGOUT) {
+                    mTextViewId.setText("未登录");
+                    mKeBiaos.removeAll(mKeBiaos);
+                    mTips.setVisibility(View.VISIBLE);
+                    mTableAdapter.notifyDataSetChanged();
+                }
+                break;
+        }
     }
 }

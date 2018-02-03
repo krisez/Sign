@@ -1,7 +1,10 @@
 package cn.krisez.sign.persenter.table_presenter;
 
+import android.widget.Toast;
+
 import java.util.List;
 
+import cn.krisez.sign.App;
 import cn.krisez.sign.bean.KeBiao;
 import cn.krisez.sign.model.table_model.ITableModel;
 import cn.krisez.sign.model.table_model.TableModel;
@@ -38,6 +41,6 @@ public class TablePresenter implements ITablePresenter,TableListener {
 
     @Override
     public void failed(String s) {
-
+        Toast.makeText(App.getContext(), s, Toast.LENGTH_SHORT).show();
     }
 }

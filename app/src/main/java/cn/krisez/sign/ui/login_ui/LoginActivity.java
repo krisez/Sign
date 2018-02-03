@@ -1,5 +1,6 @@
 package cn.krisez.sign.ui.login_ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -81,6 +82,9 @@ public class LoginActivity extends AppCompatActivity implements ILoginView{
     @Override
     public void dismissProgress() {
         mProgressBar.setVisibility(View.GONE);
+        Intent intent = new Intent();
+        intent.putExtra("xh",getXh());
+        setResult(RESULT_OK,intent);
         finish();
     }
 }

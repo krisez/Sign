@@ -12,12 +12,17 @@ public class Students extends BmobObject{
     private String name;//姓名
     private String xy;//学院
     private String zy;//专业
+    private String sex;
 
-    public Students(String xh, String name, String xy, String zy) {
+    public Students() {
+    }
+
+    public Students(String xh, String name, String xy, String zy, String sex) {
         this.xh = xh;
         this.name = name;
         this.xy = xy;
         this.zy = zy;
+        this.sex = sex;
     }
 
     public String getXh() {
@@ -50,5 +55,13 @@ public class Students extends BmobObject{
 
     public void setZy(String zy) {
         this.zy = zy;
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
     }
 }

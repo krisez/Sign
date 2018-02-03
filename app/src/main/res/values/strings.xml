@@ -22,7 +22,7 @@
     <string name="nav_email">Email:</string>
     <string name="nav_emailAd">krisez96@gmail.com</string>
     <string name="nav_share">分享</string>
-    <string name="main_tips">请登录查看您的课表！</string>
+    <string name="main_tips">请登录查看您的课表！\n请通过个人中心登录</string>
     <string name="action_refresh">刷新</string>
 
 </resources>

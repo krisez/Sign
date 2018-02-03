@@ -28,7 +28,7 @@
         <activity
             android:screenOrientation="landscape"
             android:name=".ui.seat_ui.SeatActivity"/>
-        <activity android:name=".ui.main_ui.PersonActivity"/>
+        <activity android:name=".ui.person_ui.PersonActivity"/>
         <activity android:name=".ui.login_ui.LoginActivity"/>
     </application>
 

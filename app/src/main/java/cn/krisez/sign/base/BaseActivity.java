@@ -54,7 +54,7 @@ public abstract class BaseActivity extends AppCompatActivity{
 
     protected abstract View setView();
     protected abstract void initSon();
-    protected abstract String setbTitle();
+    protected abstract String setbTitle();//不要title的时候设置return ""
 
     protected void missProgress(){
         mProgressBar.setVisibility(View.GONE);
