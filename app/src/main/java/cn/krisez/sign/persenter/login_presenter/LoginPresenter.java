@@ -32,10 +32,12 @@ public class LoginPresenter implements ILoginPresenter,LoginListener {
     @Override
     public void success() {
         mView.dismissProgress();
+        mView.right();
     }
 
     @Override
     public void failed(String s) {
+        mView.dismissProgress();
         mView.showError(s);
     }
 }

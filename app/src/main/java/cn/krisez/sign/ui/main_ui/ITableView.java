@@ -10,5 +10,6 @@ import cn.krisez.sign.bean.KeBiao;
 
 public interface ITableView {
     void showTable(List<KeBiao> keBiaoList);
+    void errorTip(String s);
 
 }

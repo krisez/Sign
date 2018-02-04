@@ -38,6 +38,7 @@ public class LoginModel implements ILoginModel {
                 if (e == null) {
                     loginTable(xh);
                     saveStudent(xh);
+                    SharedPreferenceUtil.setTable(xh,"");
                     listener.success();
                 }else listener.failed(e.getMessage());
             }

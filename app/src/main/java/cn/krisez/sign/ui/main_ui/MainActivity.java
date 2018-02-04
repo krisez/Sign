@@ -12,6 +12,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -71,7 +72,8 @@ public class MainActivity extends AppCompatActivity
             mTips.setVisibility(View.VISIBLE);
             mTextViewId.setText("未登录");
         } else {
-            mPresenter.getTable();
+            if (!SharedPreferenceUtil.getTable().isEmpty())
+                mPresenter.getTable();
             mTextViewId.setText(SharedPreferenceUtil.getXh());
         }
         mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(8, StaggeredGridLayoutManager.VERTICAL));
@@ -149,6 +151,7 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
         Intent intent = null;
         if (id == R.id.nav_personal) {
+            Log.d("MainActivity", "onNavigationItemSelected:" + SharedPreferenceUtil.getXh());
             if (!SharedPreferenceUtil.getXh().isEmpty()) {
                 intent = new Intent(MainActivity.this, PersonActivity.class);
                 startActivityForResult(intent, REQUEST_PERSON);
@@ -175,6 +178,12 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
+    public void errorTip(String s) {
+        mTips.setText(s);
+        mTips.setVisibility(View.VISIBLE);
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
@@ -182,9 +191,10 @@ public class MainActivity extends AppCompatActivity
                 mTextViewId.setText(data.getStringExtra("xh"));
                 break;
             case REQUEST_PERSON:
-                if(resultCode == PersonActivity.RESULT_LOGOUT) {
+                if (resultCode == PersonActivity.RESULT_LOGOUT) {
                     mTextViewId.setText("未登录");
                     mKeBiaos.removeAll(mKeBiaos);
+                    mTips.setText(R.string.main_tips);
                     mTips.setVisibility(View.VISIBLE);
                     mTableAdapter.notifyDataSetChanged();
                 }

@@ -41,6 +41,7 @@ public class TablePresenter implements ITablePresenter,TableListener {
 
     @Override
     public void failed(String s) {
+        mITableView.errorTip("网络貌似开小差了呢~~~");
         Toast.makeText(App.getContext(), s, Toast.LENGTH_SHORT).show();
     }
 }

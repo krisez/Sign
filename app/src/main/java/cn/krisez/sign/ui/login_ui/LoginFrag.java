@@ -73,6 +73,11 @@ public class LoginFrag extends Fragment implements ILoginView{
 
     @Override
     public void dismissProgress() {
-        ((LoginActivity)getActivity()).dismissProgress(getXh());
+        ((LoginActivity)getActivity()).dismissProgress();
+    }
+
+    @Override
+    public void right(){
+        ((LoginActivity)getActivity()).success(getXh());
     }
 }

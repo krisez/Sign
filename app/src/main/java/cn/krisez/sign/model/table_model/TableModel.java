@@ -27,7 +27,7 @@ public class TableModel implements ITableModel {
 
     @Override
     public void getTableData(final String xh, final TableListener listener) {
-        OkHttpUtils.get().addParams("xh",xh).url(App.stu_kb).build().execute(new Callback() {
+        OkHttpUtils.get().addParams("xh",xh).url(App.stu_kb).build().connTimeOut(3000).readTimeOut(5000).execute(new Callback() {
             @Override
             public Object parseNetworkResponse(Response response, int id) throws Exception {
                 String data = response.body().string();
@@ -37,7 +37,7 @@ public class TableModel implements ITableModel {
 
             @Override
             public void onError(Call call, Exception e, int id) {
-
+                listener.failed(e.getMessage());
             }
 
             @Override

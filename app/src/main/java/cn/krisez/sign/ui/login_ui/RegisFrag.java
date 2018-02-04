@@ -33,10 +33,11 @@ public class RegisFrag extends Fragment implements ILoginView {
 
 
     private ILoginPresenter mPresenter;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.activity_login_reg,container,false);
+        View v = inflater.inflate(R.layout.activity_login_reg, container, false);
         return v;
     }
 
@@ -85,11 +86,16 @@ public class RegisFrag extends Fragment implements ILoginView {
 
     @Override
     public void showProgress() {
-        ((LoginActivity)getActivity()).showProgress();
+        ((LoginActivity) getActivity()).showProgress();
     }
 
     @Override
     public void dismissProgress() {
-        ((LoginActivity)getActivity()).dismissProgress(getXh());
+        ((LoginActivity) getActivity()).dismissProgress();
+    }
+
+    @Override
+    public void right() {
+        ((LoginActivity) getActivity()).success(getXh());
     }
 }

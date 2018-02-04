@@ -82,8 +82,11 @@ public class LoginActivity extends FragmentActivity{
         mProgressBar.setVisibility(View.VISIBLE);
     }
 
-    public void dismissProgress(String xh) {
+    public void dismissProgress() {
         mProgressBar.setVisibility(View.GONE);
+    }
+
+    public void success(String xh){
         Intent intent = new Intent();
         intent.putExtra("xh",xh);
         setResult(RESULT_OK,intent);

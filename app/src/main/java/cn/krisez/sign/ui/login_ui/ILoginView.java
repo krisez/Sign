@@ -10,4 +10,5 @@ public interface ILoginView {
     void showError(String s);
     void showProgress();
     void dismissProgress();
+    void right();
 }
