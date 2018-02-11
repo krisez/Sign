@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import cn.bmob.v3.BmobUser;
+import cn.krisez.sign.App;
 import cn.krisez.sign.R;
 import cn.krisez.sign.base.BaseActivity;
 import cn.krisez.sign.bean.Students;
@@ -21,7 +22,6 @@ import cn.krisez.sign.utils.SharedPreferenceUtil;
 public class PersonActivity extends BaseActivity implements IPersonView{
     public static final int RESULT_LOGOUT = 201;
 
-    private View mView;
     private TextView mName;
     private TextView mXh;
     private TextView mSex;
@@ -32,8 +32,7 @@ public class PersonActivity extends BaseActivity implements IPersonView{
 
     @Override
     protected View setView() {
-        mView = View.inflate(this, R.layout.activity_person,null);
-        return mView;
+        return View.inflate(this, R.layout.activity_person, null);
     }
 
     @Override
@@ -56,8 +55,9 @@ public class PersonActivity extends BaseActivity implements IPersonView{
                 SharedPreferenceUtil.setTable("","");
                 showPro();
                 setResult(RESULT_LOGOUT);
-                finish();
                 dismiss();
+                App.setUser(null);
+                finish();
             }
         });
     }

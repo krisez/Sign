@@ -22,6 +22,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.krisez.sign.App;
 import cn.krisez.sign.R;
 import cn.krisez.sign.adapter.TableAdapter;
 import cn.krisez.sign.bean.KeBiao;
@@ -29,6 +30,7 @@ import cn.krisez.sign.persenter.table_presenter.ITablePresenter;
 import cn.krisez.sign.persenter.table_presenter.TablePresenter;
 import cn.krisez.sign.ui.login_ui.LoginActivity;
 import cn.krisez.sign.ui.person_ui.PersonActivity;
+import cn.krisez.sign.ui.sign_ui.SignActivity;
 import cn.krisez.sign.utils.SharedPreferenceUtil;
 import cn.krisez.sign.widget.DividerDecoration;
 
@@ -160,6 +162,8 @@ public class MainActivity extends AppCompatActivity
                 startActivityForResult(intent, REQUEST_LOGIN);
             }
         } else if (id == R.id.nav_sign) {
+            intent = new Intent(MainActivity.this, SignActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_work) {
             //intent = new Intent(MainActivity.this, WorkActivity.class);
         }
@@ -189,6 +193,7 @@ public class MainActivity extends AppCompatActivity
         switch (requestCode) {
             case REQUEST_LOGIN:
                 mTextViewId.setText(data.getStringExtra("xh"));
+                mTips.setText("右上角手动刷新\n谢谢");
                 break;
             case REQUEST_PERSON:
                 if (resultCode == PersonActivity.RESULT_LOGOUT) {

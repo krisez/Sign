@@ -8,6 +8,7 @@ import cn.bmob.v3.BmobUser;
 
 public class User extends BmobUser {
     private String headImg;
+    private String type;
 
     public User() {
     }
@@ -18,5 +19,13 @@ public class User extends BmobUser {
 
     public void setHeadImg(String headImg) {
         this.headImg = headImg;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

@@ -39,6 +39,7 @@ public class LoginModel implements ILoginModel {
                     loginTable(xh);
                     saveStudent(xh);
                     SharedPreferenceUtil.setTable(xh,"");
+                    App.setUser(u);
                     listener.success();
                 }else listener.failed(e.getMessage());
             }
@@ -57,8 +58,9 @@ public class LoginModel implements ILoginModel {
             public void done(User u, BmobException e) {
                 if (e == null) {
                     u.setPassword(mm);
-                    loginTable(xh);
+                    SharedPreferenceUtil.setTable(xh,"");
                     laterLogin(u, listener);
+                    loginTable(xh);
                 } else listener.failed(e.getMessage());
             }
         });
@@ -69,6 +71,7 @@ public class LoginModel implements ILoginModel {
             @Override
             public void done(User user, BmobException e) {
                 saveStudent(user.getUsername());
+                App.setUser(user);
                 listener.success();
             }
         });

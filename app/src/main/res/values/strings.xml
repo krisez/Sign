@@ -30,5 +30,10 @@
     <string name="boy">男</string>
     <string name="girl">女</string>
     <string name="register_tip">每个都为必填项，谢谢合作！ \n填写前请查看《注册须知》</string>
+    <string name="create_join">创建/加入</string>
+    <string name="course_name">课程名</string>
+    <string name="teahcer_name">教师</string>
+    <string name="class_name">班级</string>
+    <string name="ensure">确定</string>
 
 </resources>

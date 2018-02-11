@@ -30,6 +30,12 @@
             android:name=".ui.seat_ui.SeatActivity"/>
         <activity android:name=".ui.person_ui.PersonActivity"/>
         <activity android:name=".ui.login_ui.LoginActivity"/>
+        <activity android:name=".ui.sign_ui.SignActivity"/>
+        <activity android:name=".ui.sign_ui.SignCreateActivity"/>
+        <activity android:name=".ui.sign_ui.SignJoinActivity"/>
+        <activity android:name=".ui.sign_ui.SignEndActivity"/>
+        <activity android:name=".ui.sign_ui.SignStartActivity"/>
+        <activity android:name=".ui.sign_ui.SignShowActivity"/>
     </application>
 
 </manifest>

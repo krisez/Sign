@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import cn.krisez.sign.R;
 
@@ -59,9 +60,10 @@ public abstract class BaseActivity extends AppCompatActivity{
     protected void missProgress(){
         mProgressBar.setVisibility(View.GONE);
     }
-
-
     protected void showProgress(){
         mProgressBar.setVisibility(View.VISIBLE);
+    }
+    protected void showError(String s){
+        Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
     }
 }
