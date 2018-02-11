@@ -7,6 +7,5 @@ package cn.krisez.sign.persenter.sign_presenter;
 public interface ISignPresenter {
     void getCourses();
     void viewStuList();
-    void joinClass();
     void signClass();
 }

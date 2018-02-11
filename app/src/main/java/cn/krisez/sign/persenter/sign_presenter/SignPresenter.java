@@ -2,9 +2,7 @@ package cn.krisez.sign.persenter.sign_presenter;
 
 import java.util.List;
 
-import cn.krisez.sign.bean.sign.ClassSign;
 import cn.krisez.sign.bean.sign.Course;
-import cn.krisez.sign.bean.sign.CourseBelong;
 import cn.krisez.sign.model.sign_model.ISignModel;
 import cn.krisez.sign.model.sign_model.SignModel;
 import cn.krisez.sign.ui.sign_ui.ISignView;
@@ -30,11 +28,6 @@ public class SignPresenter implements ISignPresenter,SignListener {
 
     @Override
     public void viewStuList() {
-
-    }
-
-    @Override
-    public void joinClass() {
 
     }
 

@@ -2,6 +2,7 @@ package cn.krisez.sign.ui.sign_ui;
 
 import android.content.Intent;
 import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -19,6 +20,7 @@ import cn.krisez.sign.bean.sign.Course;
 import cn.krisez.sign.bean.sign.CourseBelong;
 import cn.krisez.sign.persenter.sign_presenter.ISignPresenter;
 import cn.krisez.sign.persenter.sign_presenter.SignPresenter;
+import cn.krisez.sign.widget.DividerDecoration;
 
 /**
  * Created by Krisez on 2018-02-10.
@@ -45,6 +47,7 @@ public class SignActivity extends BaseActivity implements ISignView{
         mRecyclerView = findViewById(R.id.sign_recycler);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        mRecyclerView.addItemDecoration(new DividerDecoration(this,DividerDecoration.VERTICAL_LIST));
         mRecyclerView.setAdapter(mAdapter);
         mPresenter.getCourses();
         findViewById(R.id.sign_create_join).setOnClickListener(new View.OnClickListener() {

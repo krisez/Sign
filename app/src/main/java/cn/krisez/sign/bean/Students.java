@@ -1,6 +1,7 @@
 package cn.krisez.sign.bean;
 
 import cn.bmob.v3.BmobObject;
+import cn.bmob.v3.datatype.BmobRelation;
 
 /**
  * Created by Krisez on 2018-01-25.
@@ -13,6 +14,7 @@ public class Students extends BmobObject{
     private String xy;//学院
     private String zy;//专业
     private String sex;
+    private BmobRelation courses;
 
     public Students() {
     }
@@ -23,6 +25,23 @@ public class Students extends BmobObject{
         this.xy = xy;
         this.zy = zy;
         this.sex = sex;
+    }
+
+    public Students(String xh, String name, String xy, String zy, String sex, BmobRelation courses) {
+        this.xh = xh;
+        this.name = name;
+        this.xy = xy;
+        this.zy = zy;
+        this.sex = sex;
+        this.courses = courses;
+    }
+
+    public BmobRelation getCourses() {
+        return courses;
+    }
+
+    public void setCourses(BmobRelation courses) {
+        this.courses = courses;
     }
 
     public String getXh() {

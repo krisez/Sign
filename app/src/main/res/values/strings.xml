@@ -35,5 +35,6 @@
     <string name="teahcer_name">教师</string>
     <string name="class_name">班级</string>
     <string name="ensure">确定</string>
+    <string name="search">搜索</string>
 
 </resources>

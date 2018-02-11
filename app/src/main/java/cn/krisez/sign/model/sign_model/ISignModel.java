@@ -9,6 +9,7 @@ import cn.krisez.sign.persenter.sign_presenter.SignListener;
 public interface ISignModel {
     void getCourse(SignListener listener);
     void create(String courseName, String teacher, String classCode, SignListener listener);
+    void search(String _id,SignListener listener);
     void join(String _id,SignListener listener);
     void start(SignListener listener);//老师开始
     void end(SignListener listener);//老师结束
