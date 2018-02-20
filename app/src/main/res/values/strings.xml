@@ -32,9 +32,14 @@
     <string name="register_tip">每个都为必填项，谢谢合作！ \n填写前请查看《注册须知》</string>
     <string name="create_join">创建/加入</string>
     <string name="course_name">课程名</string>
-    <string name="teahcer_name">教师</string>
+    <string name="teacher_name">教师</string>
     <string name="class_name">班级</string>
     <string name="ensure">确定</string>
     <string name="search">搜索</string>
+    <string name="sign_state">状态</string>
+    <string name="start">开始</string>
+    <string name="click_me_show_stu">点我查看签到详情</string>
+    <string name="input_bh">输入编号</string>
+    <string name="input_yzm">输入验证码</string>
 
 </resources>

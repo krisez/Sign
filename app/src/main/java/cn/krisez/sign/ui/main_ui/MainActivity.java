@@ -162,7 +162,11 @@ public class MainActivity extends AppCompatActivity
                 startActivityForResult(intent, REQUEST_LOGIN);
             }
         } else if (id == R.id.nav_sign) {
-            intent = new Intent(MainActivity.this, SignActivity.class);
+            if (!SharedPreferenceUtil.getXh().isEmpty()) {
+                intent = new Intent(MainActivity.this, SignActivity.class);
+            } else {
+                intent = new Intent(MainActivity.this, LoginActivity.class);
+            }
             startActivity(intent);
         } else if (id == R.id.nav_work) {
             //intent = new Intent(MainActivity.this, WorkActivity.class);

@@ -7,6 +7,9 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
+
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.RECEIVE_WAP_PUSH"/>
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -36,6 +39,7 @@
         <activity android:name=".ui.sign_ui.SignEndActivity"/>
         <activity android:name=".ui.sign_ui.SignStartActivity"/>
         <activity android:name=".ui.sign_ui.SignShowActivity"/>
+        <activity android:name=".ui.sign_ui.SignDoingActivity"/>
     </application>
 
 </manifest>

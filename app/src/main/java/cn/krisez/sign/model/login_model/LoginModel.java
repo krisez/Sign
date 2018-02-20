@@ -12,6 +12,7 @@ import cn.bmob.v3.listener.SaveListener;
 import cn.krisez.sign.App;
 import cn.krisez.sign.bean.KeBiao;
 import cn.krisez.sign.bean.Students;
+import cn.krisez.sign.bean.Teacher;
 import cn.krisez.sign.bean.User;
 import cn.krisez.sign.persenter.login_presenter.LoginListener;
 import cn.krisez.sign.persenter.login_presenter.LoginPresenter;
@@ -23,6 +24,7 @@ import okhttp3.Response;
 /**
  * Created by Krisez on 2018-01-29.
  * 登录model
+ * 1学生，2老师
  */
 
 public class LoginModel implements ILoginModel {
@@ -36,12 +38,15 @@ public class LoginModel implements ILoginModel {
             @Override
             public void done(User u, BmobException e) {
                 if (e == null) {
-                    loginTable(xh);
+                    loginTable(xh, Integer.parseInt(u.getType()));
                     saveStudent(xh);
-                    SharedPreferenceUtil.setTable(xh,"");
+                    SharedPreferenceUtil.setTable(xh, "");
                     App.setUser(u);
                     listener.success();
-                }else listener.failed(e.getMessage());
+                } else {
+                    if (e.getErrorCode() == 101)
+                        listener.failed("用户名或密码不正确");
+                }
             }
         });
 
@@ -53,14 +58,35 @@ public class LoginModel implements ILoginModel {
         User user = new User();
         user.setUsername(xh);
         user.setPassword(mm);
+        user.setType("1");
         user.signUp(new SaveListener<User>() {
             @Override
             public void done(User u, BmobException e) {
                 if (e == null) {
                     u.setPassword(mm);
-                    SharedPreferenceUtil.setTable(xh,"");
+                    SharedPreferenceUtil.setTable(xh, "");
                     laterLogin(u, listener);
-                    loginTable(xh);
+                    loginTable(xh,1);
+                } else listener.failed(e.getMessage());
+            }
+        });
+    }
+
+    @Override
+    public void teacher(final String gh, final String mm, Teacher teacher, final LoginListener listener) {
+        teacher.save();
+        User user = new User();
+        user.setUsername(gh);
+        user.setPassword(mm);
+        user.setType("2");
+        user.signUp(new SaveListener<User>() {
+            @Override
+            public void done(User u, BmobException e) {
+                if (e == null) {
+                    u.setPassword(mm);
+                    SharedPreferenceUtil.setTable(gh, "");
+                    laterLogin(u, listener);
+                    loginTable(gh,2);
                 } else listener.failed(e.getMessage());
             }
         });
@@ -70,15 +96,27 @@ public class LoginModel implements ILoginModel {
         user.login(new SaveListener<User>() {
             @Override
             public void done(User user, BmobException e) {
-                saveStudent(user.getUsername());
+                if (user.getType().equals("1")) {
+                    saveStudent(user.getUsername());
+                }else saveTeacher(user.getUsername());
                 App.setUser(user);
                 listener.success();
             }
         });
     }
 
-    private void loginTable(final String xh) {
-        OkHttpUtils.get().addParams("xh", xh).url(App.stu_kb).build().execute(new Callback() {
+
+    private void loginTable(final String xh,int i) {
+        String url = "";
+        String params = "";
+        if(i==1){
+            url = App.stu_kb;
+            params = "xh";
+        }else{
+            url = App.tea_kb;
+            params = "gh";
+        }
+        OkHttpUtils.get().addParams(params, xh).url(url).build().execute(new Callback() {
             @Override
             public Object parseNetworkResponse(Response response, int id) throws Exception {
                 String data = response.body().string();
@@ -106,6 +144,19 @@ public class LoginModel implements ILoginModel {
                     public void done(List<Students> list, BmobException e) {
                         Students students = list.get(0);
                         SharedPreferenceUtil.saveStudent(students);
+                    }
+                });
+    }
+
+
+    private void saveTeacher(String username) {
+        BmobQuery<Teacher> query = new BmobQuery<>();
+        query.addWhereEqualTo("gh", username)
+                .findObjects(new FindListener<Teacher>() {
+                    @Override
+                    public void done(List<Teacher> list, BmobException e) {
+                        Teacher teacher = list.get(0);
+                        SharedPreferenceUtil.saveTeacher(teacher);
                     }
                 });
     }

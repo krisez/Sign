@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 
 import cn.krisez.sign.App;
 import cn.krisez.sign.bean.Students;
+import cn.krisez.sign.bean.Teacher;
 import cn.krisez.sign.bean.User;
 
 /**
@@ -49,5 +50,27 @@ public class SharedPreferenceUtil {
                 sharedPreferences.getString("sex",""));
         students.setObjectId(sharedPreferences.getString("_id",""));
         return students;
+    }
+
+    public static void saveTeacher(Teacher teacher) {
+        SharedPreferences.Editor editor = App.getContext().getSharedPreferences("teacher",Context.MODE_PRIVATE).edit();
+        editor.putString("_id",teacher.getObjectId());
+        editor.putString("name",teacher.getName());
+        editor.putString("sex",teacher.getSex());
+        editor.putString("xh",teacher.getGh());
+        editor.putString("xy",teacher.getXy());
+        editor.putString("zy",teacher.getZy());
+        editor.apply();
+    }
+
+    public static Teacher getTeacher(){
+        SharedPreferences sharedPreferences = App.getContext().getSharedPreferences("teacher",Context.MODE_PRIVATE);
+        Teacher teacher = new Teacher(sharedPreferences.getString("xh",""),
+                sharedPreferences.getString("name",""),
+                sharedPreferences.getString("xy",""),
+                sharedPreferences.getString("zy",""),
+                sharedPreferences.getString("sex",""));
+        teacher.setObjectId(sharedPreferences.getString("_id",""));
+        return teacher;
     }
 }

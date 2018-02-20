@@ -1,7 +1,5 @@
 package cn.krisez.sign.ui.person_ui;
 
-import android.content.DialogInterface;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.TextView;
@@ -11,6 +9,7 @@ import cn.krisez.sign.App;
 import cn.krisez.sign.R;
 import cn.krisez.sign.base.BaseActivity;
 import cn.krisez.sign.bean.Students;
+import cn.krisez.sign.bean.Teacher;
 import cn.krisez.sign.persenter.person_presenter.IPersonPresenter;
 import cn.krisez.sign.persenter.person_presenter.PersonPresenter;
 import cn.krisez.sign.utils.SharedPreferenceUtil;
@@ -46,7 +45,7 @@ public class PersonActivity extends BaseActivity implements IPersonView{
         mZy = findViewById(R.id.person_zy);
         CardView logout = findViewById(R.id.person_logout);
 
-        mPresenter.localStudent();
+        mPresenter.local();
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -84,5 +83,14 @@ public class PersonActivity extends BaseActivity implements IPersonView{
     @Override
     public void dismiss() {
         missProgress();
+    }
+
+    @Override
+    public void setInfo(Teacher teacher) {
+        mName.setText(teacher.getName());
+        mSex.setText(teacher.getSex());
+        mZy.setText(teacher.getZy());
+        mXy.setText(teacher.getXy());
+        mXh.setText(teacher.getGh());
     }
 }

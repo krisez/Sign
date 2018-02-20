@@ -8,5 +8,5 @@ import cn.krisez.sign.persenter.person_presenter.PersonListener;
  */
 
 public interface IPersonModel {
-    void localStudent(PersonListener listener);
+    void local(PersonListener listener);
 }

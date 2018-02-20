@@ -1,6 +1,7 @@
 package cn.krisez.sign.model.login_model;
 
 import cn.krisez.sign.bean.Students;
+import cn.krisez.sign.bean.Teacher;
 import cn.krisez.sign.persenter.login_presenter.LoginListener;
 import cn.krisez.sign.persenter.login_presenter.LoginPresenter;
 
@@ -11,4 +12,5 @@ import cn.krisez.sign.persenter.login_presenter.LoginPresenter;
 public interface ILoginModel {
     void getUser(String xh, String mm, LoginListener listener);
     void register(String xh, String mm, Students students,LoginListener listener);
+    void teacher(String gh, String mm, Teacher teacher, LoginListener listener);
 }

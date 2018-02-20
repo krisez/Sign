@@ -1,6 +1,7 @@
 package cn.krisez.sign.persenter.login_presenter;
 
 import cn.krisez.sign.bean.Students;
+import cn.krisez.sign.bean.Teacher;
 
 /**
  * Created by Krisez on 2018-01-29.
@@ -9,4 +10,5 @@ import cn.krisez.sign.bean.Students;
 public interface ILoginPresenter {
     void login();
     void signup(Students students);
+    void signT(Teacher teacher);
 }

@@ -1,5 +1,6 @@
 package cn.krisez.sign.model.person_model;
 
+import cn.krisez.sign.App;
 import cn.krisez.sign.persenter.person_presenter.PersonListener;
 import cn.krisez.sign.utils.SharedPreferenceUtil;
 
@@ -9,7 +10,9 @@ import cn.krisez.sign.utils.SharedPreferenceUtil;
 
 public class PersonModel implements IPersonModel {
     @Override
-    public void localStudent(PersonListener listener) {
+    public void local(PersonListener listener) {
+        if (App.getUser().getType().equals("1"))
         listener.success(SharedPreferenceUtil.getStudent());
+        else listener.success(SharedPreferenceUtil.getTeacher());
     }
 }

@@ -1,6 +1,7 @@
 package cn.krisez.sign.persenter.person_presenter;
 
 import cn.krisez.sign.bean.Students;
+import cn.krisez.sign.bean.Teacher;
 import cn.krisez.sign.model.person_model.IPersonModel;
 import cn.krisez.sign.model.person_model.PersonModel;
 import cn.krisez.sign.ui.person_ui.IPersonView;
@@ -19,15 +20,21 @@ public class PersonPresenter implements IPersonPresenter,PersonListener {
         mIPersonModel = new PersonModel();
     }
     @Override
-    public void localStudent() {
+    public void local() {
         mView.showPro();
-        mIPersonModel.localStudent(this);
+        mIPersonModel.local(this);
     }
 
     @Override
     public void success(Students students) {
         mView.dismiss();
         mView.setInfo(students);
+    }
+
+    @Override
+    public void success(Teacher teacher) {
+        mView.dismiss();
+        mView.setInfo(teacher);
     }
 
     @Override

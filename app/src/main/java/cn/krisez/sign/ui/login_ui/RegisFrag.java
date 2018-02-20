@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 
 import cn.krisez.sign.R;
 import cn.krisez.sign.bean.Students;
+import cn.krisez.sign.bean.Teacher;
 import cn.krisez.sign.persenter.login_presenter.ILoginPresenter;
 import cn.krisez.sign.persenter.login_presenter.LoginPresenter;
 
@@ -29,7 +31,7 @@ public class RegisFrag extends Fragment implements ILoginView {
     private EditText mXy;
     private EditText mZy;
     private RadioGroup mRadioGroup;
-    private Button mSignUp;
+    private CheckBox mCheckBox;
 
 
     private ILoginPresenter mPresenter;
@@ -52,19 +54,38 @@ public class RegisFrag extends Fragment implements ILoginView {
         mXy = view.findViewById(R.id.register_xy);
         mZy = view.findViewById(R.id.register_zy);
         mRadioGroup = view.findViewById(R.id.register_sex);
-        mSignUp = view.findViewById(R.id.login_up);
-        mSignUp.setOnClickListener(new View.OnClickListener() {
+        mCheckBox = view.findViewById(R.id.register_rule_teacher);
+        Button signUp = view.findViewById(R.id.login_up);
+        signUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RadioButton button = view.findViewById(mRadioGroup.getCheckedRadioButtonId());
-                Students students = new Students();
-                students.setName(mName.getText().toString());
-                students.setXh(getXh());
-                students.setSex(button.getText().toString());
-                students.setXy(mXy.getText().toString());
-                students.setZy(mZy.getText().toString());
-                mPresenter.signup(students);
-                showProgress();
+                if(getXh().isEmpty()&&getMM().isEmpty()&&mName.getText().toString().isEmpty()
+                        &&mXy.getText().toString().isEmpty()&&mZy.getText().toString().isEmpty()
+                        ){
+                    Toast.makeText(getActivity(), "请填写完整！", Toast.LENGTH_SHORT).show();
+                }else {
+                    RadioButton button = view.findViewById(mRadioGroup.getCheckedRadioButtonId());
+                    if(!mCheckBox.isChecked()){
+                        Students students = new Students();
+                        students.setName(mName.getText().toString());
+                        students.setXh(getXh());
+                        students.setSex(button.getText().toString());
+                        students.setXy(mXy.getText().toString());
+                        students.setZy(mZy.getText().toString());
+                        mPresenter.signup(students);
+                        showProgress();
+                    }else {
+                        Teacher teacher = new Teacher();
+                        teacher.setName(mName.getText().toString());
+                        teacher.setGh(getXh());
+                        teacher.setSex(button.getText().toString());
+                        teacher.setXy(mXy.getText().toString());
+                        teacher.setZy(mZy.getText().toString());
+                        mPresenter.signT(teacher);
+                        showProgress();
+                    }
+
+                }
             }
         });
     }
@@ -96,6 +117,7 @@ public class RegisFrag extends Fragment implements ILoginView {
 
     @Override
     public void right() {
+        Toast.makeText(getActivity(), "默认学生", Toast.LENGTH_SHORT).show();
         ((LoginActivity) getActivity()).success(getXh());
     }
 }

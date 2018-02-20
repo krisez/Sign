@@ -19,6 +19,7 @@ import okhttp3.OkHttpClient;
 
 public class App extends Application {
     public static final String stu_kb = "http://jwzx.cqupt.congm.in/jwzxtmp/kebiao/kb_stu.php";
+    public static final String tea_kb = "http://jwzx.cqupt.congm.in/jwzxtmp/kebiao/kb_tea.php";
 
     private static Context mContext;
     private static User sUser;

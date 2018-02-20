@@ -1,6 +1,7 @@
 package cn.krisez.sign.persenter.login_presenter;
 
 import cn.krisez.sign.bean.Students;
+import cn.krisez.sign.bean.Teacher;
 import cn.krisez.sign.bean.User;
 import cn.krisez.sign.model.login_model.ILoginModel;
 import cn.krisez.sign.model.login_model.LoginModel;
@@ -27,6 +28,11 @@ public class LoginPresenter implements ILoginPresenter,LoginListener {
     @Override
     public void signup(Students students) {
         mModel.register(mView.getXh(),mView.getMM(),students,this);
+    }
+
+    @Override
+    public void signT(Teacher teacher) {
+        mModel.teacher(mView.getXh(),mView.getMM(),teacher,this);
     }
 
     @Override

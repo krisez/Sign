@@ -6,35 +6,37 @@ import cn.krisez.sign.bean.sign.Course;
 import cn.krisez.sign.model.sign_model.ISignModel;
 import cn.krisez.sign.model.sign_model.SignModel;
 import cn.krisez.sign.persenter.sign_presenter.listener.SignListener;
-import cn.krisez.sign.ui.sign_ui.ICreateView;
+import cn.krisez.sign.ui.sign_ui.IDoingView;
 
 /**
- * Created by Krisez on 2018-02-11.
+ * Created by Krisez on 2018-02-20.
+ * 学生签到进行中
  */
 
-public class CreatePresenter implements ICreatePresenter,SignListener {
-    private ICreateView mView;
-    private ISignModel mModel;
+public class DoingPresenter implements IDoingPresenter,SignListener{
 
-    public CreatePresenter(ICreateView view) {
+    private ISignModel mModel;
+    private IDoingView mView;
+
+    public DoingPresenter(IDoingView view) {
         mView = view;
         mModel = new SignModel();
     }
 
     @Override
-    public void createClass() {
-        mModel.create(mView.getCourseName(),mView.getTeacher(),mView.getClassCode(),this);
+    public void sign() {
+        mModel.sign(mView.getYzm(),mView.getCourseId(),this);
     }
 
     @Override
     public void success(List<Course> list, String _id) {
-        mView.cancelProgress();
-        mView.js(_id);
+        mView.js();
     }
 
     @Override
     public void failed(String s) {
-        mView.cancelProgress();
-        mView.error(s);
+mView.error(s);
     }
+
+
 }

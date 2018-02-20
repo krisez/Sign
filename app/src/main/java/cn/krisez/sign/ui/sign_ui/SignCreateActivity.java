@@ -40,7 +40,7 @@ public class SignCreateActivity extends BaseActivity implements ICreateView{
         course = findViewById(R.id.sign_create_course_name);
         classcode = findViewById(R.id.sign_create_class_code);
         teacher = findViewById(R.id.sign_create_teacher_name);
-        teacher.setText(SharedPreferenceUtil.getStudent().getName());
+        teacher.setText(SharedPreferenceUtil.getTeacher().getName());
         findViewById(R.id.sign_create_ok).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
