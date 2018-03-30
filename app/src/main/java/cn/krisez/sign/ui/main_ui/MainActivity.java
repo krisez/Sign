@@ -1,5 +1,6 @@
 package cn.krisez.sign.ui.main_ui;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -32,6 +33,7 @@ import cn.krisez.sign.ui.login_ui.LoginActivity;
 import cn.krisez.sign.ui.person_ui.PersonActivity;
 import cn.krisez.sign.ui.sign_ui.SignActivity;
 import cn.krisez.sign.utils.SharedPreferenceUtil;
+import cn.krisez.sign.utils.Time;
 import cn.krisez.sign.widget.DividerDecoration;
 
 /**
@@ -54,13 +56,15 @@ public class MainActivity extends AppCompatActivity
 
     private ITablePresenter mPresenter;
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         mPresenter = new TablePresenter(this);
-
+        TextView setDay = (TextView) findViewById(R.id.week_day);
+        setDay.setText("第" + (Time.getWeeks() / 7 + 1) + "周");
         init();
         initOperation();
     }
