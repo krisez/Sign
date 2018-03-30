@@ -202,7 +202,7 @@ public class MainActivity extends AppCompatActivity
             case REQUEST_PERSON:
                 if (resultCode == PersonActivity.RESULT_LOGOUT) {
                     mTextViewId.setText("未登录");
-                    mKeBiaos.removeAll(mKeBiaos);
+                    mKeBiaos.clear();
                     mTips.setText(R.string.main_tips);
                     mTips.setVisibility(View.VISIBLE);
                     mTableAdapter.notifyDataSetChanged();

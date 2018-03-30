@@ -7,6 +7,6 @@ import cn.krisez.sign.persenter.class_presenter.ClassListener;
  */
 
 public interface ISeatModel {
-    void updateSeat(ClassListener listener);
-    void reset(ClassListener listener);
+    void updateSeat(int pos,ClassListener listener);
+    void reset(String teacher,String lesson,ClassListener listener);
 }

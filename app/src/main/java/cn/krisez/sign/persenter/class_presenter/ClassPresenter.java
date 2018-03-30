@@ -21,14 +21,14 @@ public class ClassPresenter implements ClassPresenterImp,ClassListener {
     }
 
     @Override
-    public void update() {
-
+    public void update(int position) {
+        mIMainModel.updateSeat(position,this);
     }
 
     @Override
     public void reset() {
         iview.showProgress();
-        mIMainModel.reset(this);
+        mIMainModel.reset(iview.getTeacher(),iview.getClassRoom(),this);
     }
 
     @Override

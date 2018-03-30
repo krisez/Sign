@@ -1,6 +1,7 @@
 package cn.krisez.sign.utils;
 
 import android.content.Context;
+import android.util.Log;
 
 /**
  * Created by Krisez on 2018-01-27.
@@ -74,23 +75,17 @@ public class Utils {
         int i = 0;
         int name1 = 0;//  -
         int addr = 0;
-        int mao = 0;//   :
         while (true) {
             if (s.charAt(i) == '-') {
                 name1 = i;
             }
             if (s.charAt(i) == '地') {
                 addr = i;
-            }
-            if (s.charAt(i) == '：') {
-                mao = i;
-            }
-            if (mao > 0) {
                 break;
             }
             i++;
         }
-        return s.substring(name1+1, addr);
+        return s.substring(name1+1, addr-1);
     }
 
     /**
@@ -117,6 +112,8 @@ public class Utils {
 
 
     public static String getLessonTeacher(String s) {
-        return "";
+        String[] ss = s.split("\n");
+        String a = ss[3];
+        return a.substring(a.lastIndexOf(' ')+1,a.length());
     }
 }

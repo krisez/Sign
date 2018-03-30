@@ -73,4 +73,15 @@ public class SharedPreferenceUtil {
         teacher.setObjectId(sharedPreferences.getString("_id",""));
         return teacher;
     }
+
+    public static void setClassId(String classId) {
+        SharedPreferences.Editor editor = App.getContext().getSharedPreferences("classroom",Context.MODE_PRIVATE).edit();
+        editor.putString("_id",classId);
+        editor.apply();
+    }
+
+    public static String getClassId() {
+        SharedPreferences sp = App.getContext().getSharedPreferences("classroom",Context.MODE_PRIVATE);
+        return sp.getString("_id","");
+    }
 }

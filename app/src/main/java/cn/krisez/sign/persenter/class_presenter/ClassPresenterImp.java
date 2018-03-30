@@ -5,6 +5,6 @@ package cn.krisez.sign.persenter.class_presenter;
  */
 
 public interface ClassPresenterImp {
-    void update();
     void reset();
+    void update(int position);
 }

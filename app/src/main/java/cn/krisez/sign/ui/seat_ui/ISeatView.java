@@ -12,4 +12,6 @@ public interface ISeatView {
     void showProgress();
     void dismissProgress();
     void updateList(List<Seats> seats);
+    String getTeacher();
+    String getClassRoom();
 }

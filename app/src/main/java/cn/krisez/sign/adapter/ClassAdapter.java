@@ -47,6 +47,7 @@ public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.SeatsHolder>
         Seats seat = mSeats.get(position);
         holder.itemView.setBackgroundColor(Color.parseColor(seat.getColor()));
         if(!seat.getType().equals("gd")){
+            if(seat.getBelong()!=null)
             holder.name.setText(seat.getBelong().getName());
         }
         if (onItemClickListener != null) {

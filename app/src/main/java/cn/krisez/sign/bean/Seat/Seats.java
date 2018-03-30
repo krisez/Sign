@@ -16,8 +16,10 @@ public class Seats extends BmobObject{
     private int qj;//have a vacation\
     private String color;//color judge
 
-    Seats() {
+    public Seats() {
     }
+
+
 
     public Seats(int no, String type, Students belong, int cd, int qj, String color) {
         this.no = no;
