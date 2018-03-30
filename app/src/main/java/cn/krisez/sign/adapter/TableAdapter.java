@@ -60,21 +60,24 @@ public class TableAdapter extends RecyclerView.Adapter<TableAdapter.MyViewHolder
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = layoutInflater.inflate(R.layout.table_item,parent,false);
-        MyViewHolder myViewHolder = new MyViewHolder(view);
-        return myViewHolder;
+        return new MyViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
         final KeBiao keBiao = mDatas.get(position);
+        final String s = keBiao.getTextView();
         ViewGroup.LayoutParams lp = holder.itemView.getLayoutParams();
         lp.width = Utils.dip2px(mContex,60);
         if(position>=16&&position<=23 ||position>=40 &&position<=47){
             lp.height = Utils.dip2px(mContex,20);
         }
-        holder.tv.setText(keBiao.getTextView());
+        if(keBiao.getTextView().length()>10){
+            holder.tv.setText(Utils.getLessonName(s));
+            holder.addr.setText(Utils.getLessonAddr(s));
+        }else holder.tv.setText(keBiao.getTextView());
         if(keBiao.getTextView().length()>25)
-            holder.tv.setBackgroundColor(Color.parseColor(Utils.RandomColor(position)));
+            holder.itemView.setBackgroundColor(Color.parseColor(Utils.RandomColor(position)));
         if(onItemClickListener != null){
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -89,6 +92,8 @@ public class TableAdapter extends RecyclerView.Adapter<TableAdapter.MyViewHolder
                                     @Override
                                     public void onClick(DialogInterface dialogInterface, int i) {
                                         Intent intent = new Intent(mContex, SeatActivity.class);
+                                        intent.putExtra("teacher",Utils.getLessonTeacher(s));
+                                        intent.putExtra("class",Utils.getLessonAddr(s));
                                         mContex.startActivity(intent);
                                     }
                                 })
@@ -117,9 +122,11 @@ public class TableAdapter extends RecyclerView.Adapter<TableAdapter.MyViewHolder
 
     class MyViewHolder extends RecyclerView.ViewHolder {
         TextView tv;
-        public MyViewHolder(View itemView) {
+        TextView addr;
+        MyViewHolder(View itemView) {
             super(itemView);
-            tv = (TextView) itemView.findViewById(R.id.item_show);
+            tv = (TextView) itemView.findViewById(R.id.table_name);
+            addr = itemView.findViewById(R.id.table_addr);
         }
     }
 }

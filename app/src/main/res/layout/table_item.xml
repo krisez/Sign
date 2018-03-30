@@ -1,18 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
-    android:layout_height="95dp"
+    android:layout_height="80dp"
     android:layout_marginLeft="10dp"
     android:layout_marginRight="10dp"
     android:layout_marginTop="2dp"
-    >
+    android:orientation="vertical">
 
     <TextView
+        android:id="@+id/table_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:lines="5"
         android:ellipsize="end"
+        android:lines="3"
+        android:textAlignment="center"
         android:textStyle="bold"
-        android:id="@+id/item_show"/>
-</FrameLayout>
+        tools:text="asdaads" />
+
+    <TextView
+        android:id="@+id/table_addr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/table_name"
+        android:textAlignment="center"
+        android:textStyle="bold"
+        tools:text="3301" />
+</RelativeLayout>
