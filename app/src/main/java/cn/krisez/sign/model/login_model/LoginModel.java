@@ -9,7 +9,9 @@ import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.SaveListener;
+import cn.bmob.v3.listener.UpdateListener;
 import cn.krisez.sign.App;
+import cn.krisez.sign.bean.CheckTeacher;
 import cn.krisez.sign.bean.KeBiao;
 import cn.krisez.sign.bean.Students;
 import cn.krisez.sign.bean.Teacher;
@@ -39,7 +41,9 @@ public class LoginModel implements ILoginModel {
             public void done(User u, BmobException e) {
                 if (e == null) {
                     loginTable(xh, Integer.parseInt(u.getType()));
+                    if(u.getType().equals("1"))
                     saveStudent(xh);
+                    else saveTeacher(xh);
                     SharedPreferenceUtil.setTable(xh, "");
                     App.setUser(u);
                     listener.success();
@@ -66,7 +70,7 @@ public class LoginModel implements ILoginModel {
                     u.setPassword(mm);
                     SharedPreferenceUtil.setTable(xh, "");
                     laterLogin(u, listener);
-                    loginTable(xh,1);
+                    loginTable(xh, 1);
                 } else listener.failed(e.getMessage());
             }
         });
@@ -86,8 +90,40 @@ public class LoginModel implements ILoginModel {
                     u.setPassword(mm);
                     SharedPreferenceUtil.setTable(gh, "");
                     laterLogin(u, listener);
-                    loginTable(gh,2);
+                    loginTable(gh, 2);
                 } else listener.failed(e.getMessage());
+            }
+        });
+    }
+
+    @Override
+    public void checkTeacher(String s, final LoginListener listener) {
+        BmobQuery<CheckTeacher> query = new BmobQuery<>();
+        query.addWhereEqualTo("invite", s)
+                .findObjects(new FindListener<CheckTeacher>() {
+            @Override
+            public void done(List<CheckTeacher> list, BmobException e) {
+                if (e == null) {
+                    if (list.size() > 0) {
+                        CheckTeacher checkTeacher = list.get(0);
+                        int c = checkTeacher.getCount();
+                        if(c > 0){
+                            c = c-1;
+                            checkTeacher.setCount(c);
+                            checkTeacher.update( new UpdateListener() {
+                                @Override
+                                public void done(BmobException e) {
+                                    listener.invite();
+                                }
+                            });
+                        }else listener.failed("请换一个邀请码");
+                    } else {
+                        listener.failed("不存在");
+                    }
+                } else {
+                    e.printStackTrace();
+                    listener.failed(e.getMessage());
+                }
             }
         });
     }
@@ -98,7 +134,7 @@ public class LoginModel implements ILoginModel {
             public void done(User user, BmobException e) {
                 if (user.getType().equals("1")) {
                     saveStudent(user.getUsername());
-                }else saveTeacher(user.getUsername());
+                } else saveTeacher(user.getUsername());
                 App.setUser(user);
                 listener.success();
             }
@@ -106,15 +142,15 @@ public class LoginModel implements ILoginModel {
     }
 
 
-    private void loginTable(final String xh,int i) {
+    private void loginTable(final String xh, int i) {
         String url = "";
         String params = "";
-        if(i==1){
+        if (i == 1) {
             url = App.stu_kb;
             params = "xh";
-        }else{
+        } else {
             url = App.tea_kb;
-            params = "gh";
+            params = "teaId";
         }
         OkHttpUtils.get().addParams(params, xh).url(url).build().execute(new Callback() {
             @Override

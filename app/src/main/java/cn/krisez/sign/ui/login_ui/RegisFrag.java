@@ -1,8 +1,10 @@
 package cn.krisez.sign.ui.login_ui;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +16,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import cn.krisez.sign.App;
 import cn.krisez.sign.R;
 import cn.krisez.sign.bean.Students;
 import cn.krisez.sign.bean.Teacher;
@@ -59,13 +62,20 @@ public class RegisFrag extends Fragment implements ILoginView {
         signUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(getXh().isEmpty()&&getMM().isEmpty()&&mName.getText().toString().isEmpty()
-                        &&mXy.getText().toString().isEmpty()&&mZy.getText().toString().isEmpty()
-                        ){
+                if (getXh().isEmpty() || getMM().isEmpty() || mName.getText().toString().isEmpty()
+                        || mXy.getText().toString().isEmpty() || mZy.getText().toString().isEmpty()
+                        ) {
                     Toast.makeText(getActivity(), "请填写完整！", Toast.LENGTH_SHORT).show();
-                }else {
+                } else {
+                    if (getXh().length() != 10 && !mCheckBox.isChecked()) {
+                        Toast.makeText(getActivity(), "学号貌似有点问题~", Toast.LENGTH_SHORT).show();
+                        return;
+                    }else if(getXh().length() != 6 && mCheckBox.isChecked()){
+                        Toast.makeText(getActivity(), "工号貌似有点问题~", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                     RadioButton button = view.findViewById(mRadioGroup.getCheckedRadioButtonId());
-                    if(!mCheckBox.isChecked()){
+                    if (!mCheckBox.isChecked()) {
                         Students students = new Students();
                         students.setName(mName.getText().toString());
                         students.setXh(getXh());
@@ -74,7 +84,7 @@ public class RegisFrag extends Fragment implements ILoginView {
                         students.setZy(mZy.getText().toString());
                         mPresenter.signup(students);
                         showProgress();
-                    }else {
+                    } else {
                         Teacher teacher = new Teacher();
                         teacher.setName(mName.getText().toString());
                         teacher.setGh(getXh());
@@ -84,10 +94,28 @@ public class RegisFrag extends Fragment implements ILoginView {
                         mPresenter.signT(teacher);
                         showProgress();
                     }
-
                 }
             }
         });
+        if (!mCheckBox.isChecked())
+            mCheckBox.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    final EditText editText = new EditText(getActivity());
+                    new AlertDialog.Builder(getActivity())
+                            .setTitle("邀请码")
+                            .setView(editText)
+                            .setPositiveButton("提交", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    showProgress();
+                                    mPresenter.checkTeacher(editText.getText().toString());
+                                }
+                            })
+                            .show()
+                            .setCancelable(false);
+                }
+            });
     }
 
     @Override
@@ -102,6 +130,9 @@ public class RegisFrag extends Fragment implements ILoginView {
 
     @Override
     public void showError(String s) {
+        if (mCheckBox.isChecked()) {
+            mCheckBox.setChecked(false);
+        }
         Toast.makeText(getContext(), s, Toast.LENGTH_SHORT).show();
     }
 
@@ -117,7 +148,6 @@ public class RegisFrag extends Fragment implements ILoginView {
 
     @Override
     public void right() {
-        Toast.makeText(getActivity(), "默认学生", Toast.LENGTH_SHORT).show();
         ((LoginActivity) getActivity()).success(getXh());
     }
 }

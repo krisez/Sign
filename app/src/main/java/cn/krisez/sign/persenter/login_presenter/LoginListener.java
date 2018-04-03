@@ -9,4 +9,5 @@ import cn.krisez.sign.bean.User;
 public interface LoginListener {
     void success();
     void failed(String s);
+    void invite();
 }

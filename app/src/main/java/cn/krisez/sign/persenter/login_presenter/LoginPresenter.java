@@ -36,6 +36,11 @@ public class LoginPresenter implements ILoginPresenter,LoginListener {
     }
 
     @Override
+    public void checkTeacher(String s) {
+        mModel.checkTeacher(s,this);
+    }
+
+    @Override
     public void success() {
         mView.dismissProgress();
         mView.right();
@@ -45,5 +50,10 @@ public class LoginPresenter implements ILoginPresenter,LoginListener {
     public void failed(String s) {
         mView.dismissProgress();
         mView.showError(s);
+    }
+
+    @Override
+    public void invite() {
+        mView.dismissProgress();
     }
 }

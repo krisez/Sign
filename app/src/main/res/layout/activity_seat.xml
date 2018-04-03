@@ -9,6 +9,7 @@
     tools:showIn="@layout/app_bar_main">
 
     <ScrollView
+        android:visibility="invisible"
         android:id="@+id/class_scroll"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
@@ -112,13 +113,115 @@
 
         </TableLayout>
     </ScrollView>
+    <ScrollView
+        android:visibility="gone"
+        android:id="@+id/class_scroll_t"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        app:layout_constraintEnd_toStartOf="@id/class_recycler"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TableLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TableRow>
+
+                <TextView
+                    android:layout_height="48dp"
+                    android:gravity="center"
+                    android:text="11" />
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:layout_height="48dp"
+                    android:gravity="center"
+                    android:text="10" />
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:layout_height="48dp"
+                    android:gravity="center"
+                    android:text="9" />
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:layout_height="48dp"
+                    android:gravity="center"
+                    android:text="8" />
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:layout_height="48dp"
+                    android:gravity="center"
+                    android:text="7" />
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:layout_height="48dp"
+                    android:gravity="center"
+                    android:text="6" />
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:layout_height="48dp"
+                    android:gravity="center"
+
+                    android:text="5" />
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:layout_height="48dp"
+                    android:gravity="center"
+                    android:text="4" />
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:layout_height="48dp"
+                    android:gravity="center"
+                    android:text="3" />
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:layout_height="48dp"
+                    android:gravity="center"
+                    android:text="2" />
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:layout_height="48dp"
+                    android:gravity="center"
+                    android:text="1" />
+            </TableRow>
+
+        </TableLayout>
+    </ScrollView>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/class_recycler"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="match_parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/class_scroll" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <ProgressBar
         android:id="@+id/progress_bar"
@@ -130,10 +233,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/class_button"
-        android:layout_width="wrap_content"
+    <TextView
+        android:id="@+id/seat_tips"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="开始"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="@string/seat_tips"
+        />
 </android.support.constraint.ConstraintLayout>

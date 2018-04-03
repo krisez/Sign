@@ -27,11 +27,21 @@ public class TableModel implements ITableModel {
 
     @Override
     public void getTableData(final String xh, final TableListener listener) {
-        OkHttpUtils.get().addParams("xh",xh).url(App.stu_kb).build().connTimeOut(3000).readTimeOut(5000).execute(new Callback() {
+        String url = "";
+        String params = "";
+        String i = App.getUser().getType();
+        if (i.equals("1")) {
+            url = App.stu_kb;
+            params = "xh";
+        } else {
+            url = App.tea_kb;
+            params = "teaId";
+        }
+        OkHttpUtils.get().addParams(params, xh).url(url).build().connTimeOut(3000).readTimeOut(5000).execute(new Callback() {
             @Override
             public Object parseNetworkResponse(Response response, int id) throws Exception {
                 String data = response.body().string();
-                SharedPreferenceUtil.setTable(xh,data);
+                SharedPreferenceUtil.setTable(xh, data);
                 return dealTable(data);
             }
 

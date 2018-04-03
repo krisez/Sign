@@ -11,4 +11,5 @@ public interface ILoginPresenter {
     void login();
     void signup(Students students);
     void signT(Teacher teacher);
+    void checkTeacher(String s);
 }

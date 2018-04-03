@@ -13,4 +13,5 @@ public interface ILoginModel {
     void getUser(String xh, String mm, LoginListener listener);
     void register(String xh, String mm, Students students,LoginListener listener);
     void teacher(String gh, String mm, Teacher teacher, LoginListener listener);
+    void checkTeacher(String s, LoginListener listener);
 }

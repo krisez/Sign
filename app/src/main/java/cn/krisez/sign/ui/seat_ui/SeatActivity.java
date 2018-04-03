@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -27,6 +28,7 @@ import cn.krisez.sign.bean.Students;
 import cn.krisez.sign.persenter.class_presenter.ClassPresenter;
 import cn.krisez.sign.persenter.class_presenter.ClassPresenterImp;
 import cn.krisez.sign.utils.SharedPreferenceUtil;
+import cn.krisez.sign.utils.Utils;
 
 public class SeatActivity extends AppCompatActivity implements ISeatView {
 
@@ -36,9 +38,10 @@ public class SeatActivity extends AppCompatActivity implements ISeatView {
     private List<Seats> mSeatsLis = new ArrayList<>();
 
     //demo
-    private Button mButton;
     private ProgressBar mProgressBar;
-    private ScrollView mScrollView;
+    private ScrollView mScrollView1;//stu
+    private ScrollView mScrollView2;//tea
+    private TextView mTips;
 
     private ClassPresenterImp mPresenter;
 
@@ -53,7 +56,6 @@ public class SeatActivity extends AppCompatActivity implements ISeatView {
 
     //操作初始化
     private void initOperation() {
-        mButton = findViewById(R.id.class_button);
         mProgressBar = findViewById(R.id.progress_bar);
         mClassAdapter = new ClassAdapter(this, mSeatsLis);
         mRecyclerView = findViewById(R.id.class_recycler);
@@ -61,28 +63,25 @@ public class SeatActivity extends AppCompatActivity implements ISeatView {
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.setAdapter(mClassAdapter);
 
-        mButton = findViewById(R.id.class_button);
         mProgressBar = findViewById(R.id.progress_bar);
-        mScrollView = findViewById(R.id.class_scroll);
-        mButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mPresenter.reset();
-            }
-        });
+        mScrollView1 = findViewById(R.id.class_scroll);
+        mScrollView2 = findViewById(R.id.class_scroll_t);
+        mTips = findViewById(R.id.seat_tips);
+        mPresenter.reset();
 
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                mScrollView.scrollBy(dx, dy);
+                mScrollView1.scrollBy(dx, dy);
+                mScrollView2.scrollBy(dx, dy);
             }
         });
 
         mClassAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(View view, final int position) {
-                if (App.getUser().getType().equals("1")) {//学生
+                if (App.getUser().getType().equals("1")&&mSeatsLis.get(position).getBelong()==null) {//学生
                     new AlertDialog.Builder(SeatActivity.this)
                             .setTitle("选座")
                             .setMessage("最后确认！")
@@ -102,7 +101,6 @@ public class SeatActivity extends AppCompatActivity implements ISeatView {
                             .setNegativeButton("重选", null)
                             .show();
                 } else {
-                    Toast.makeText(SeatActivity.this, mSeatsLis.get(position).getBelong().getName(), Toast.LENGTH_SHORT).show();
                     new AlertDialog.Builder(SeatActivity.this)
                             .setTitle("信息")
                             .setMessage(mSeatsLis.get(position).getBelong().toString())
@@ -158,14 +156,27 @@ public class SeatActivity extends AppCompatActivity implements ISeatView {
     @Override
     public void dismissProgress() {
         mProgressBar.setVisibility(View.GONE);
-        mButton.setVisibility(View.GONE);
     }
 
     @Override
     public void updateList(List<Seats> seats) {
         mSeatsLis.clear();
-        mSeatsLis.addAll(seats);
-        mClassAdapter.notifyDataSetChanged();
+        if(App.getUser().getType().equals("1")) {
+            mSeatsLis.addAll(seats);
+            mScrollView1.setVisibility(View.VISIBLE);
+            mClassAdapter.notifyDataSetChanged();
+        }
+        else {
+            for (int i = seats.size()-1; i >= 0 ; i--) {
+                mSeatsLis.add(seats.get(i));
+            }
+            mRecyclerView.scrollBy(0, Utils.dip2px(this,200));
+            mScrollView2.setVisibility(View.VISIBLE);
+            mClassAdapter.notifyDataSetChanged();
+        }
+        if(!mSeatsLis.isEmpty()){
+            mTips.setVisibility(View.GONE);
+        }
     }
 
     @Override
