@@ -105,7 +105,10 @@ public class Utils {
         }
         String addr = s.substring(mao+1, mao+5);
         if(addr.charAt(0)<'0'||addr.charAt(0)>'9'){
-            addr = "实验楼";
+            if(addr.charAt(0)=='待'){
+                addr = "待定";
+            }else
+            addr = "实验";
         }
         return addr;
     }

@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity
 
         mPresenter = new TablePresenter(this);
         TextView setDay = (TextView) findViewById(R.id.week_day);
-        setDay.setText("第" + (Time.getWeeks() / 7 + 1) + "周");
+        setDay.setText("第" + (Time.getWeeks() + 1) + "周");
         init();
         initOperation();
     }
